@@ -19,14 +19,19 @@
             min-height: 100vh;
             display: flex;
             flex-direction: column;
+            padding: 40px 20px 20px;
+        }
+        
+        .main-content {
+            flex: 1;
+            display: flex;
+            justify-content: center;
             align-items: center;
-            padding: 40px 20px;
         }
         
         .container {
             max-width: 700px;
             width: 100%;
-            flex: 1; /* Pushes footer down */
         }
         
         h1 {
@@ -129,22 +134,24 @@
             margin-top: 8px;
         }
         
-        /* Footer */
+        /* Footer - Fixed at bottom */
         .footer {
-            margin-top: 60px;
-            padding-top: 32px;
-            border-top: 1px solid #27272a;
             width: 100%;
-            max-width: 700px;
+            padding: 24px 20px;
+            border-top: 1px solid #27272a;
+            background: #0f1117;
+            margin-top: auto;
         }
         
         .footer-content {
+            max-width: 700px;
+            margin: 0 auto;
             text-align: center;
         }
         
         .footer-text {
             color: #71717a;
-            font-size: 14px;
+            font-size: 13px;
             margin-bottom: 16px;
         }
         
@@ -154,7 +161,7 @@
         
         .social-links {
             display: flex;
-            gap: 16px;
+            gap: 12px;
             justify-content: center;
             align-items: center;
         }
@@ -163,13 +170,13 @@
             display: flex;
             align-items: center;
             gap: 8px;
-            padding: 10px 20px;
+            padding: 8px 16px;
             background: #18181b;
             border: 1px solid #27272a;
             border-radius: 8px;
             color: #a1a1aa;
             text-decoration: none;
-            font-size: 14px;
+            font-size: 13px;
             font-weight: 500;
             transition: all 0.2s ease;
         }
@@ -459,7 +466,7 @@
         /* Responsive */
         @media (max-width: 640px) {
             body {
-                padding: 20px;
+                padding: 20px 15px 15px;
             }
             
             h1 {
@@ -497,125 +504,141 @@
                 width: 100%;
                 justify-content: center;
             }
+            
+            .footer {
+                padding: 20px 15px;
+            }
         }
     </style>
 </head>
 <body>
-    <div class="container">
-        <h1>File Analyzer</h1>
-        <p class="subtitle">Upload any file to check its type and security status</p>
-        
-        <div class="project-info">
-            <div class="info-section">
-                <h3>About This Project</h3>
-                <p>
-                    This is a web-based security analysis tool that performs comprehensive file type identification 
-                    and malware detection. Built with Python Flask and integrated with VirusTotal's API, it provides 
-                    real-time threat assessment by scanning files against 70+ antivirus engines.
-                </p>
-            </div>
+    <div class="main-content">
+        <div class="container">
+            <h1>File Analyzer</h1>
+            <p class="subtitle">Upload any file to check its type and security status</p>
             
-            <div class="info-section">
-                <h3>How It Works</h3>
-                <div class="tech-grid">
-                    <div class="tech-item">
-                        <span class="tech-icon">🔍</span>
-                        <div>
-                            <strong>File Type Detection</strong>
-                            <p>Analyzes file signatures (magic numbers) to accurately identify file types beyond extensions</p>
-                        </div>
-                    </div>
-                    <div class="tech-item">
-                        <span class="tech-icon">🔐</span>
-                        <div>
-                            <strong>SHA-256 Hashing</strong>
-                            <p>Generates cryptographic hash fingerprints for file verification and integrity checking</p>
-                        </div>
-                    </div>
-                    <div class="tech-item">
-                        <span class="tech-icon">🛡️</span>
-                        <div>
-                            <strong>Malware Scanning</strong>
-                            <p>Queries VirusTotal API to check files against multiple antivirus engines and threat databases</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            
-            <div class="tech-stack">
-                <strong>Tech Stack:</strong> 
-                <span class="tech-badge">Python</span>
-                <span class="tech-badge">Flask</span>
-                <span class="tech-badge">JavaScript</span>
-                <span class="tech-badge">VirusTotal API</span>
-                <span class="tech-badge">HTML/CSS</span>
-            </div>
-        </div>
-        
-        <div class="upload-area" id="uploadArea">
-            <div class="upload-icon">📄</div>
-            <div class="upload-text">Click to upload or drag & drop</div>
-            <div class="upload-subtext">Maximum file size: 32MB</div>
-            <input type="file" id="fileInput" accept="*/*">
-        </div>
-        
-        <div class="file-info" id="fileInfo">
-            <div class="file-name" id="fileName"></div>
-            <div class="file-size" id="fileSize"></div>
-        </div>
-        
-        <button class="analyze-btn" id="analyzeBtn">Analyze File</button>
-        
-        <div class="loading" id="loading">
-            <div class="spinner"></div>
-            <p class="loading-text">Analyzing...</p>
-        </div>
-        
-        <div class="error-message" id="errorMessage"></div>
-        
-        <div class="results" id="results">
-            <div class="safety-card">
-                <div class="safety-info">
-                    <div class="safety-label">Security Status</div>
-                    <div class="safety-status" id="statusText">Safe</div>
-                    <div class="safety-details" id="statusDetails"></div>
-                </div>
-                <div class="gauge-container">
-                    <svg class="gauge-svg" width="100" height="100">
-                        <circle class="gauge-bg" cx="50" cy="50" r="42"></circle>
-                        <circle class="gauge-progress" id="gaugeProgress" cx="50" cy="50" r="42"
-                            stroke-dasharray="264" stroke-dashoffset="264"></circle>
-                    </svg>
-                    <div class="gauge-text">
-                        <div class="gauge-percentage" id="gaugePercentage">0%</div>
-                        <div class="gauge-subtitle">Safe</div>
-                    </div>
-                </div>
-            </div>
-            
-            <div class="results-grid">
-                <div class="detail-card">
-                    <div class="detail-label">File Name</div>
-                    <div class="detail-value" id="resultFilename"></div>
+            <!-- Project Description -->
+            <div class="project-info">
+                <div class="info-section">
+                    <h3>About This Project</h3>
+                    <p>
+                        This is a web-based security analysis tool that performs comprehensive file type identification 
+                        and malware detection. Built with Python Flask and integrated with VirusTotal's API, it provides 
+                        real-time threat assessment by scanning files against 70+ antivirus engines.
+                    </p>
                 </div>
                 
-                <div class="detail-card">
-                    <div class="detail-label">File Type</div>
-                    <div class="detail-value" id="resultFileType"></div>
+                <div class="info-section">
+                    <h3>How It Works</h3>
+                    <div class="tech-grid">
+                        <div class="tech-item">
+                            <span class="tech-icon">🔍</span>
+                            <div>
+                                <strong>File Type Detection</strong>
+                                <p>Analyzes file signatures (magic numbers) to accurately identify file types beyond extensions</p>
+                            </div>
+                        </div>
+                        <div class="tech-item">
+                            <span class="tech-icon">🔐</span>
+                            <div>
+                                <strong>SHA-256 Hashing</strong>
+                                <p>Generates cryptographic hash fingerprints for file verification and integrity checking</p>
+                            </div>
+                        </div>
+                        <div class="tech-item">
+                            <span class="tech-icon">🛡️</span>
+                            <div>
+                                <strong>Malware Scanning</strong>
+                                <p>Queries VirusTotal API to check files against multiple antivirus engines and threat databases</p>
+                            </div>
+                        </div>
+                    </div>
                 </div>
                 
-                <div class="detail-card">
-                    <div class="detail-label">SHA-256 Hash</div>
-                    <div class="detail-value" id="resultHash"></div>
+                <div class="tech-stack">
+                    <strong>Tech Stack:</strong> 
+                    <span class="tech-badge">Python</span>
+                    <span class="tech-badge">Flask</span>
+                    <span class="tech-badge">JavaScript</span>
+                    <span class="tech-badge">VirusTotal API</span>
+                    <span class="tech-badge">HTML/CSS</span>
+                </div>
+            </div>
+            
+            <!-- Upload Area -->
+            <div class="upload-area" id="uploadArea">
+                <div class="upload-icon">📄</div>
+                <div class="upload-text">Click to upload or drag & drop</div>
+                <div class="upload-subtext">Maximum file size: 32MB</div>
+                <input type="file" id="fileInput" accept="*/*">
+            </div>
+            
+            <!-- File Info -->
+            <div class="file-info" id="fileInfo">
+                <div class="file-name" id="fileName"></div>
+                <div class="file-size" id="fileSize"></div>
+            </div>
+            
+            <!-- Analyze Button -->
+            <button class="analyze-btn" id="analyzeBtn">Analyze File</button>
+            
+            <!-- Loading -->
+            <div class="loading" id="loading">
+                <div class="spinner"></div>
+                <p class="loading-text">Analyzing...</p>
+            </div>
+            
+            <!-- Error -->
+            <div class="error-message" id="errorMessage"></div>
+            
+            <!-- Results -->
+            <div class="results" id="results">
+                <!-- Safety Score -->
+                <div class="safety-card">
+                    <div class="safety-info">
+                        <div class="safety-label">Security Status</div>
+                        <div class="safety-status" id="statusText">Safe</div>
+                        <div class="safety-details" id="statusDetails"></div>
+                    </div>
+                    <div class="gauge-container">
+                        <svg class="gauge-svg" width="100" height="100">
+                            <circle class="gauge-bg" cx="50" cy="50" r="42"></circle>
+                            <circle class="gauge-progress" id="gaugeProgress" cx="50" cy="50" r="42"
+                                stroke-dasharray="264" stroke-dashoffset="264"></circle>
+                        </svg>
+                        <div class="gauge-text">
+                            <div class="gauge-percentage" id="gaugePercentage">0%</div>
+                            <div class="gauge-subtitle">Safe</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- File Details -->
+                <div class="results-grid">
+                    <div class="detail-card">
+                        <div class="detail-label">File Name</div>
+                        <div class="detail-value" id="resultFilename"></div>
+                    </div>
+                    
+                    <div class="detail-card">
+                        <div class="detail-label">File Type</div>
+                        <div class="detail-value" id="resultFileType"></div>
+                    </div>
+                    
+                    <div class="detail-card">
+                        <div class="detail-label">SHA-256 Hash</div>
+                        <div class="detail-value" id="resultHash"></div>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
     
+    <!-- Footer - Fixed at bottom -->
     <footer class="footer">
         <div class="footer-content">
             <p class="footer-text">
-                Built by <strong>[Sancheet Pawar]</strong> as a portfolio project demonstrating Application File type Security and API integration skills
+                Built by <strong>Sancheet Pawar</strong>
             </p>
             <div class="social-links">
                 <a href="https://github.com/Sanche3t" target="_blank" class="social-link">
@@ -624,7 +647,6 @@
                     </svg>
                     GitHub
                 </a>
-                
                 <a href="https://linkedin.com/in/sancheet-pawar" target="_blank" class="social-link">
                     <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
                         <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
@@ -659,90 +681,126 @@
             uploadArea.classList.add('dragover');
         });
         
-                uploadArea.addEventListener('dragleave', () => {
-                    uploadArea.classList.remove('dragover');
+        uploadArea.addEventListener('dragleave', () => {
+            uploadArea.classList.remove('dragover');
+        });
+        
+        uploadArea.addEventListener('drop', (e) => {
+            e.preventDefault();
+            uploadArea.classList.remove('dragover');
+            if (e.dataTransfer.files[0]) handleFileSelect(e.dataTransfer.files[0]);
+        });
+        
+        function handleFileSelect(file) {
+            selectedFile = file;
+            fileName.textContent = file.name;
+            fileSize.textContent = formatFileSize(file.size);
+            fileInfo.style.display = 'block';
+            analyzeBtn.style.display = 'block';
+            results.style.display = 'none';
+            errorMessage.style.display = 'none';
+        }
+        
+        function formatFileSize(bytes) {
+            if (bytes < 1024) return bytes + ' bytes';
+            if (bytes < 1048576) return (bytes / 1024).toFixed(2) + ' KB';
+            if (bytes < 1073741824) return (bytes / 1048576).toFixed(2) + ' MB';
+            return (bytes / 1073741824).toFixed(2) + ' GB';
+        }
+        
+        analyzeBtn.addEventListener('click', async () => {
+            if (!selectedFile) {
+                showError('No file selected');
+                return;
+            }
+            
+            loading.style.display = 'block';
+            analyzeBtn.style.display = 'none';
+            results.style.display = 'none';
+            errorMessage.style.display = 'none';
+            
+            const formData = new FormData();
+            formData.append('file', selectedFile);
+            
+            try {
+                const response = await fetch('/analyze', {
+                    method: 'POST',
+                    body: formData
                 });
                 
-                uploadArea.addEventListener('drop', (e) => {
-                    e.preventDefault();
-                    uploadArea.classList.remove('dragover');
-                    if (e.dataTransfer.files[0]) handleFileSelect(e.dataTransfer.files[0]);
-                });
+                const data = await response.json();
+                loading.style.display = 'none';
                 
-                function handleFileSelect(file) {
-                    selectedFile = file;
-                    fileName.textContent = `📄 ${file.name}`;
-                    fileSize.textContent = `${(file.size / 1024 / 1024).toFixed(2)} MB`;
-                    fileInfo.style.display = 'block';
+                if (response.ok) {
+                    displayResults(data);
+                } else {
+                    showError(data.error || 'Analysis failed');
                     analyzeBtn.style.display = 'block';
-                    errorMessage.style.display = 'none';
                 }
+            } catch (error) {
+                loading.style.display = 'none';
+                analyzeBtn.style.display = 'block';
+                showError('Connection error: ' + error.message);
+            }
+        });
+        
+        function displayResults(data) {
+            document.getElementById('resultFilename').textContent = data.filename;
+            document.getElementById('resultFileType').textContent = data.file_type;
+            document.getElementById('resultHash').textContent = data.sha256;
+            
+            const vt = data.virustotal;
+            const gaugeProgress = document.getElementById('gaugeProgress');
+            const gaugePercentage = document.getElementById('gaugePercentage');
+            const statusText = document.getElementById('statusText');
+            const statusDetails = document.getElementById('statusDetails');
+            
+            if (vt.error) {
+                gaugePercentage.textContent = '--';
+                gaugePercentage.className = 'gauge-percentage warning';
+                gaugeProgress.className = 'gauge-progress warning';
+                statusText.textContent = vt.error;
+                statusText.className = 'safety-status warning';
+                statusDetails.textContent = vt.message;
+            } else if (!vt.found) {
+                gaugePercentage.textContent = '?';
+                gaugePercentage.className = 'gauge-percentage warning';
+                gaugeProgress.className = 'gauge-progress warning';
+                statusText.textContent = 'Unknown';
+                statusText.className = 'safety-status warning';
+                statusDetails.textContent = vt.message;
+            } else {
+                const safetyScore = Math.round(((vt.total - vt.malicious - vt.suspicious) / vt.total) * 100);
+                const circumference = 264;
+                const offset = circumference * (1 - safetyScore / 100) * circumference;
                 
-                analyzeBtn.addEventListener('click', async () => {
-                    if (!selectedFile) return;
-                    
-                    loading.style.display = 'block';
-                    results.style.display = 'none';
-                    errorMessage.style.display = 'none';
-                    
-                    const formData = new FormData();
-                    formData.append('file', selectedFile);
-                    
-                    try {
-                        const response = await fetch('/analyze', {
-                            method: 'POST',
-                            body: formData
-                        });
-                        
-                        const data = await response.json();
-                        loading.style.display = 'none';
-                        
-                        if (data.error) {
-                            errorMessage.textContent = data.error;
-                            errorMessage.style.display = 'block';
-                        } else {
-                            displayResults(data);
-                        }
-                    } catch (error) {
-                        loading.style.display = 'none';
-                        errorMessage.textContent = 'Error analyzing file. Please try again.';
-                        errorMessage.style.display = 'block';
-                    }
-                });
+                gaugeProgress.style.strokeDashoffset = offset;
+                gaugePercentage.textContent = safetyScore + '%';
                 
-                function displayResults(data) {
-                    document.getElementById('resultFilename').textContent = data.filename;
-                    document.getElementById('resultFileType').textContent = data.file_type;
-                    document.getElementById('resultHash').textContent = data.sha256_hash;
-                    
-                    const safetyScore = data.safety_score || 0;
-                    const statusText = document.getElementById('statusText');
-                    const statusDetails = document.getElementById('statusDetails');
-                    const gaugeProgress = document.getElementById('gaugeProgress');
-                    const gaugePercentage = document.getElementById('gaugePercentage');
-                    
-                    let statusClass = '';
-                    let statusLabel = 'Safe';
-                    
-                    if (safetyScore >= 70) {
-                        statusClass = 'danger';
-                        statusLabel = 'Dangerous';
-                    } else if (safetyScore >= 40) {
-                        statusClass = 'warning';
-                        statusLabel = 'Suspicious';
-                    }
-                    
-                    statusText.textContent = statusLabel;
-                    statusText.className = 'safety-status ' + statusClass;
-                    statusDetails.textContent = `${data.detected_by || 0} engines detected threats`;
-                    
-                    gaugePercentage.textContent = safetyScore + '%';
-                    gaugePercentage.className = 'gauge-percentage ' + statusClass;
-                    gaugeProgress.className = 'gauge-progress ' + statusClass;
-                    gaugeProgress.style.strokeDashoffset = 264 - (264 * safetyScore / 100);
-                    
-                    results.style.display = 'block';
+                if (vt.is_safe) {
+                    gaugePercentage.className = 'gauge-percentage';
+                    gaugeProgress.className = 'gauge-progress';
+                    statusText.textContent = 'Safe';
+                    statusText.className = 'safety-status';
+                    statusDetails.textContent = `No threats detected (0/${vt.total} vendors)`;
+                } else {
+                    gaugePercentage.className = 'gauge-percentage danger';
+                    gaugeProgress.className = 'gauge-progress danger';
+                    statusText.textContent = 'Threat Detected';
+                    statusText.className = 'safety-status danger';
+                    statusDetails.textContent = `${vt.malicious} of ${vt.total} vendors flagged this file`;
                 }
-            </script>
-        </body>
-        </html>
+            }
+            
+            results.style.display = 'block';
+            analyzeBtn.textContent = 'Analyze Another File';
+            analyzeBtn.style.display = 'block';
+        }
+        
+        function showError(message) {
+            errorMessage.textContent = message;
+            errorMessage.style.display = 'block';
+        }
+    </script>
+</body>
+</html>
