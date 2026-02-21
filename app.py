@@ -288,14 +288,16 @@ def analyze_file():
 # ============================================================================
 
 if __name__ == '__main__':
+    # Get port from environment variable (for deployment) or use 5000 (for local)
+    port = int(os.environ.get('PORT', 5000))
+    
     print("\n" + "="*60)
     print("🚀 File Identifier & Malware Checker is starting...")
     print("="*60)
     print("\n📋 Instructions:")
-    print("1. Make sure you've added your VirusTotal API key to .env file")
-    print("2. Open your browser and go to: http://127.0.0.1:5001")
-    print("3. Upload a file to analyze it!")
+    print(f"1. Server running on port {port}")
+    print("2. Upload a file to analyze it!")
     print("\n⚠️  Press CTRL+C to stop the server\n")
     
-  
-    app.run(debug=True, host='0.0.0.0', port=5001)
+    # Use debug=False for production
+    app.run(debug=False, host='0.0.0.0', port=port)
