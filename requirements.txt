@@ -2,8 +2,5 @@ flask==3.0.0
 requests==2.31.0
 python-dotenv==1.0.0
 Werkzeug==3.0.0
-<<<<<<< HEAD
-Gunicorn==20.1.0
-=======
 gunicorn==21.2.0
->>>>>>> b119b5a5b11f5263a7adc48239ffebe432dcc601
+
