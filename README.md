@@ -16,7 +16,7 @@ A web-based security analysis tool that identifies file types and detects malwar
 
 ## 🚀 Live Demo
 
-**[Try it Live →](https://your-site-url.com)** *(Coming soon)*
+**[Try it Live →]((https://file-analyzer-dw08.onrender.com))** 
 
 ## 🛠️ Tech Stack
 
